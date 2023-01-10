@@ -18,11 +18,13 @@ public class AccountController {
     @PostMapping("/account")
     public CreateAccount.Response createAccount(
             @RequestBody @Valid CreateAccount.Request request
-            ){
-        accountService.createAccount(
-                request.getUserId(),
-                request.getInitialBalance());
-        return "succes";
+    ) {
+        return CreateAccount.Response.from(
+                accountService.createAccount(
+                        request.getUserId(),
+                        request.getInitialBalance()
+                )
+        );
     }
 
     @GetMapping("/get-lock")
@@ -31,7 +33,7 @@ public class AccountController {
     }
 
     @GetMapping("/account/{id}")
-    public Account getAccount(@PathVariable Long id){
+    public Account getAccount(@PathVariable Long id) {
         return accountService.getAccount(id);
     }
 
